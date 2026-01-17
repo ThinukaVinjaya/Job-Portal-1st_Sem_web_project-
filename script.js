@@ -89,14 +89,14 @@ function displayJobDetails() {
                             <h1>${job.title}</h1>
                             <div class="job-detail-company">${job.company} • ${job.location} (${job.type})</div>
                             <div class="job-detail-meta">
-                                <span class="detail-meta-item meta-salary">💰 ${job.salary}/year</span>
-                                <span class="detail-meta-item">💼 ${job.category}</span>
-                                <span class="detail-meta-item">🌍 ${job.type}</span>
-                                <span class="detail-meta-item">⭐ Senior Level</span>
+                                <span class="detail-meta-item meta-salary"><!-- add icone --> ${job.salary}/year</span>
+                                <span class="detail-meta-item"><!-- add icone --> ${job.category}</span>
+                                <span class="detail-meta-item"><!-- add icone --> ${job.type}</span>
+                                <span class="detail-meta-item"><!-- add icone --> Senior Level</span>
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-apply" onclick="alert('Successfully applied for ${job.title} at ${job.company}! ✓')" style="transition: all 0.3s; cursor: pointer;">Easy Apply</button>
+                    <button class="btn btn-apply" onclick="alert('Successfully applied for ${job.title} at ${job.company}! ')" style="transition: all 0.3s; cursor: pointer;">Easy Apply</button>
                 </div>
 
                 <div class="job-detail-content">
@@ -108,14 +108,14 @@ function displayJobDetails() {
                     <div class="detail-section" style="animation: fadeIn 0.6s ease 0.2s both;">
                         <h3>Requirements</h3>
                         <ul class="requirements-list">
-                            ${job.requirements.map(req => `<li style="animation: slideIn 0.5s ease;">✓ ${req}</li>`).join('')}
+                            ${job.requirements.map(req => `<li style="animation: slideIn 0.5s ease;"> ${req}</li>`).join('')}
                         </ul>
                     </div>
 
                     <div class="detail-section" style="animation: fadeIn 0.6s ease 0.3s both;">
                         <h3>Benefits & Perks</h3>
                         <div class="benefits-grid">
-                            ${job.benefits.map((benefit, idx) => `<div class="benefit-card" style="animation: pop 0.4s ease ${0.3 + idx * 0.1}s both;">✓ ${benefit}</div>`).join('')}
+                            ${job.benefits.map((benefit, idx) => `<div class="benefit-card" style="animation: pop 0.4s ease ${0.3 + idx * 0.1}s both;"> ${benefit}</div>`).join('')}
                         </div>
                     </div>
                 </div>
@@ -190,8 +190,8 @@ function filterAndDisplayJobs() {
                 <div class="job-title">${job.title}</div>
                 <div class="company-name">${job.company}</div>
                 <div class="job-meta">
-                    <span class="meta-item meta-location">📍 ${job.location} (${job.type})</span>
-                    <span class="meta-item meta-salary">💰 ${job.salary}</span>
+                    <span class="meta-item meta-location"><!-- add icone --> ${job.location} (${job.type})</span>
+                    <span class="meta-item meta-salary"><!-- add icone --> ${job.salary}</span>
                     <span class="meta-item meta-badge">Posted ${job.posted}</span>
                 </div>
                 <div class="job-description">${job.description}</div>
@@ -199,7 +199,7 @@ function filterAndDisplayJobs() {
                     <button class="btn-apply" onclick="event.stopPropagation(); selectJob(${job.id})">Easy Apply ➤</button>
                 </div>
             </div>
-            <span class="bookmark-btn" onclick="toggleBookmark(this, event)">🔖</span>
+            <span class="bookmark-btn" onclick="toggleBookmark(this, event)"><!-- add icone --></span>
         </div>
     `).join('');
 
@@ -264,10 +264,10 @@ function initPasswordToggle() {
             const input = btn.previousElementSibling;
             if (input && input.type === 'password') {
                 input.type = 'text';
-                btn.textContent = '👁️‍🗨️';
+                btn.textContent = '<!-- add icone -->';
             } else if (input) {
                 input.type = 'password';
-                btn.textContent = '👁️';
+                btn.textContent = '<!-- add icone -->';
             }
         });
     });

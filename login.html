@@ -41,8 +41,8 @@
             </div>
 
             <div class="social-login">
-                <button type="button" class="social-btn">🔵 Continue with Google</button>
-                <button type="button" class="social-btn">💼 Continue with LinkedIn</button>
+                <button type="button" class="social-btn"><!-- add avatar --> Continue with Google</button>
+                <button type="button" class="social-btn"><!-- add avatar --> Continue with LinkedIn</button>
             </div>
 
             <div class="divider">
@@ -59,7 +59,7 @@
                     <label>Password</label>
                     <div style="position: relative; display: flex; align-items: center;">
                         <input type="password" id="passwordInput" name="password" placeholder="Enter your password" required style="flex: 1; padding-right: 40px;">
-                        <button type="button" class="password-toggle" style="position: absolute; right: 10px; background: none; border: none; cursor: pointer; font-size: 1rem; padding: 0;" onclick="togglePassword()">👁️</button>
+                        <button type="button" class="password-toggle" style="position: absolute; right: 10px; background: none; border: none; cursor: pointer; font-size: 1rem; padding: 0;" onclick="togglePassword()"><!-- add avatar --></button>
                     </div>
                 </div>
 
@@ -93,10 +93,10 @@
             const btn = event.target;
             if (input.type === 'password') {
                 input.type = 'text';
-                btn.textContent = '🙈';
+                btn.textContent = '<!-- add avatar -->';
             } else {
                 input.type = 'password';
-                btn.textContent = '👁️';
+                btn.textContent = '<!-- add avatar -->';
             }
         }
 
