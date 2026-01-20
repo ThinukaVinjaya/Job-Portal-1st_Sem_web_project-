@@ -1,5 +1,21 @@
 // ========== JOB DATABASE ==========
-const jobsDatabase = [
+let jobsDatabase = [
+    {
+        id: 1,
+        title: 'Senior Product Designer',
+        company: 'Spotify',
+        location: 'New York, NY',
+        type: 'Remote',
+        category: 'Design',
+        salary: '$140k - $180k',
+        description: 'We are looking for a Senior Product Designer to join our team. You will be responsible for defining the user experience, crafting intuitive and engaging interfaces.',
+        fullDescription: 'We are looking for a Senior Product Designer to join our team. You will be responsible for defining the user experience, crafting intuitive and engaging interfaces. You will work closely with product managers, engineers, and stakeholders to deliver world-class user experiences.',
+        requirements: ['5+ years of design experience', 'Proficiency in Figma/Sketch', 'Strong portfolio', 'Excellent communication skills', 'User-centered design approach'],
+        benefits: ['Competitive salary', 'Remote flexibility', 'Health insurance', '401k matching', 'Stock options', 'Professional development budget'],
+        avatar: 'S',
+        avatarGradient: 'linear-gradient(135deg, #1DB954 0%, #1ed760 100%)',
+        posted: '2h ago'
+    },
     {
         id: 1,
         title: 'Senior Product Designer',
@@ -97,3 +113,13 @@ const jobsDatabase = [
         posted: '3d ago'
     }
 ];
+
+// Load jobs from localStorage if available (for posted jobs)
+const storedJobs = localStorage.getItem('jobsDatabase');
+if (storedJobs) {
+    const parsedJobs = JSON.parse(storedJobs);
+    // Merge with default jobs, avoiding duplicates
+    const existingIds = jobsDatabase.map(job => job.id);
+    const newJobs = parsedJobs.filter(job => !existingIds.includes(job.id));
+    jobsDatabase = [...jobsDatabase, ...newJobs];
+}

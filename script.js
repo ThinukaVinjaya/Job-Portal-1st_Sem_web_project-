@@ -1,7 +1,79 @@
+// ========== AUTHENTICATION FUNCTIONS ==========
+function checkAuthStatus() {
+    return authDB.isAuthenticated() ? authDB.getCurrentUser() : null;
+}
+
+function logout() {
+    authDB.logout();
+    alert('You have been logged out');
+    window.location.href = 'index.html';
+}
+
+function updateNavigationUI() {
+    const authButtons = document.querySelector('.auth-buttons');
+    const mobileAuthButtons = document.querySelector('.mobile-auth-buttons');
+
+    const userData = checkAuthStatus();
+    const isDashboardPage = window.location.pathname.includes('dashboard.html') ||
+                           window.location.href.includes('dashboard.html');
+
+    if (userData) {
+        // User is logged in
+        if (isDashboardPage) {
+            // On dashboard page, show logout only
+            const dashboardButtons = `
+                <button onclick="logout()" class="btn-logout" style="background-color: #e74c3c; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-weight: 600;">Logout</button>
+            `;
+            if (authButtons) authButtons.innerHTML = dashboardButtons;
+            if (mobileAuthButtons) mobileAuthButtons.innerHTML = dashboardButtons;
+        } else {
+            // On other pages, show dashboard link and logout
+            const regularButtons = `
+                <a href="dashboard.html" class="btn-dashboard" style="color: #4A90E2; text-decoration: none; font-weight: 600; padding: 0.5rem 1rem;">Dashboard</a>
+                <button onclick="logout()" class="btn-logout" style="background-color: #e74c3c; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-weight: 600;">Logout</button>
+            `;
+            if (authButtons) authButtons.innerHTML = regularButtons;
+            if (mobileAuthButtons) mobileAuthButtons.innerHTML = regularButtons;
+        }
+    } else {
+        // User is logged out
+        const loginButtons = `
+            <a href="login.html" class="btn-login" style="color: #4A90E2; text-decoration: none; font-weight: 600; padding: 0.5rem 1rem;">Login</a>
+            <a href="signup.html" class="btn-signup" style="background-color: #4A90E2; color: white; padding: 0.5rem 1rem; border-radius: 6px; text-decoration: none; font-weight: 600;">Sign Up Free</a>
+        `;
+        if (authButtons) authButtons.innerHTML = loginButtons;
+        if (mobileAuthButtons) mobileAuthButtons.innerHTML = loginButtons;
+    }
+}
+
 // ========== GLOBAL FUNCTIONS ==========
 function toggleBookmark(element, event) {
     if (event) event.stopPropagation();
-    element.classList.toggle('active');
+
+    if (!authDB.isAuthenticated()) {
+        alert('Please login to save jobs');
+        window.location.href = 'login.html';
+        return;
+    }
+
+    const jobCard = element.closest('.job-card') || element.closest('.saved-job-card');
+    const jobId = jobCard ? jobCard.querySelector('button[onclick*="selectJob"]')?.getAttribute('onclick')?.match(/selectJob\((\d+)\)/)?.[1] : null;
+
+    if (!jobId) return;
+
+    try {
+        if (element.classList.contains('active')) {
+            // Remove from saved jobs
+            authDB.removeSavedJob(parseInt(jobId));
+            element.classList.remove('active');
+        } else {
+            // Add to saved jobs
+            authDB.saveJob(parseInt(jobId));
+            element.classList.add('active');
+        }
+    } catch (error) {
+        alert(error.message);
+    }
 }
 
 // Mobile Menu Toggle
@@ -447,6 +519,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initAuthHandlers();
     initSmoothScroll();
     initMobileMenu();
+    updateNavigationUI();
     
     // Display job details if on job-detail page
     if (window.location.pathname.includes('job-detail.html')) {

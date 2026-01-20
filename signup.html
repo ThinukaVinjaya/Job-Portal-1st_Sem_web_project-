@@ -27,6 +27,283 @@
             background: #4A90E2;
             transition: width 0.3s ease;
         }
+
+        /* Responsive Signup Styling */
+        .auth-container {
+            padding: 2rem 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+        }
+
+        .auth-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .auth-header {
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .auth-header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+            word-wrap: break-word;
+        }
+
+        .auth-header p {
+            color: #666;
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            font-family: inherit;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #4A90E2;
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+        }
+
+        .password-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .password-input-wrapper input {
+            padding-right: 40px;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 0;
+            color: #666;
+            transition: color 0.3s;
+        }
+
+        .password-toggle:hover {
+            color: #4A90E2;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background-color: #4A90E2;
+            color: white;
+            width: 100%;
+            padding: 0.875rem;
+        }
+
+        .btn-primary:hover {
+            background-color: #3a7bc8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .social-login {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin: 2rem 0;
+        }
+
+        .social-btn {
+            padding: 0.875rem;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            color: #333;
+            font-family: inherit;
+        }
+
+        .social-btn:hover {
+            border-color: #4A90E2;
+            background: rgba(74, 144, 226, 0.05);
+        }
+
+        .divider {
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+            color: #999;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #ddd;
+            z-index: 0;
+        }
+
+        .divider span {
+            background: white;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .role-option {
+            border: 2px solid #E0E6ED;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: transparent;
+        }
+
+        .role-option:hover {
+            border-color: #4A90E2;
+            background: rgba(74, 144, 226, 0.03);
+        }
+
+        .role-option.selected {
+            border-color: #4A90E2;
+            background: rgba(74, 144, 226, 0.05);
+        }
+
+        .signup-agreement {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 1.5rem;
+            line-height: 1.4;
+        }
+
+        .signup-agreement a {
+            color: #4A90E2;
+            text-decoration: none;
+        }
+
+        .signup-agreement a:hover {
+            text-decoration: underline;
+        }
+
+        .signup-footer {
+            text-align: center;
+            margin-top: 2rem;
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .signup-footer a {
+            color: #4A90E2;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .signup-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .auth-card {
+                padding: 1.5rem;
+                border-radius: 8px;
+            }
+
+            .auth-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .auth-header p {
+                font-size: 0.9rem;
+            }
+
+            .form-group input,
+            .form-group label {
+                font-size: 16px;
+            }
+
+            .social-login {
+                gap: 0.5rem;
+            }
+
+            .role-option {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .auth-container {
+                padding: 1rem;
+            }
+
+            .auth-card {
+                padding: 1.25rem;
+            }
+
+            .auth-header h1 {
+                font-size: 1.3rem;
+            }
+
+            .form-group {
+                margin-bottom: 1rem;
+            }
+
+            .form-group input {
+                padding: 0.7rem;
+            }
+        }
     </style>
 </head>
 <body class="signup-body">
@@ -230,17 +507,29 @@
             event.preventDefault();
             const fullName = sessionStorage.getItem('signup_fullName');
             const email = sessionStorage.getItem('signup_email');
+            const password = sessionStorage.getItem('signup_password');
             const userRole = document.getElementById('userRole').value;
 
-            alert(`Account created successfully!\n\nName: ${fullName}\nEmail: ${email}\nRole: ${userRole === 'job-seeker' ? 'Job Seeker' : 'Employer'}`);
-            
-            // Clear session data
-            sessionStorage.clear();
-            
-            // Redirect to dashboard
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 500);
+            try {
+                const newUser = authDB.register({
+                    fullName: fullName,
+                    email: email,
+                    password: password,
+                    role: userRole
+                });
+
+                alert(`Account created successfully!\n\nName: ${fullName}\nEmail: ${email}\nRole: ${userRole === 'job-seeker' ? 'Job Seeker' : 'Employer'}\n\nPlease login to continue.`);
+
+                // Clear session data
+                sessionStorage.clear();
+
+                // Redirect to login page
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 500);
+            } catch (error) {
+                alert(error.message);
+            }
         }
 
         // Initialize role selection on page load
@@ -248,21 +537,7 @@
             selectRole('job-seeker');
         });
     </script>
+    <script src="authDatabase.js"></script>
     <script src="script.js"></script>
-</body>
-</html>
-
-    <script>
-        function goToStep2() {
-            document.getElementById('step1').style.display = 'none';
-            document.getElementById('step2').style.display = 'block';
-        }
-
-        function goToStep1() {
-            document.getElementById('step2').style.display = 'none';
-            document.getElementById('step1').style.display = 'block';
-        }
-    </script>
-    <script src="script.js" defer></script>
 </body>
 </html>
