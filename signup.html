@@ -449,12 +449,12 @@
             const password = document.getElementById('passwordInputStep1').value;
 
             if (!fullName || !email || !password) {
-                alert('Please fill in all fields');
+                showNotification('Please fill in all fields', 'warning');
                 return;
             }
 
             if (password.length < 8) {
-                alert('Password must be at least 8 characters');
+                showNotification('Password must be at least 8 characters', 'warning');
                 return;
             }
 
@@ -518,7 +518,7 @@
                     role: userRole
                 });
 
-                alert(`Account created successfully!\n\nName: ${fullName}\nEmail: ${email}\nRole: ${userRole === 'job-seeker' ? 'Job Seeker' : 'Employer'}\n\nPlease login to continue.`);
+                showNotification(`Account created successfully! Welcome ${fullName}!`, 'success');
 
                 // Clear session data
                 sessionStorage.clear();
@@ -526,9 +526,9 @@
                 // Redirect to login page
                 setTimeout(() => {
                     window.location.href = 'login.html';
-                }, 500);
+                }, 2000);
             } catch (error) {
-                alert(error.message);
+                showNotification(error.message, 'error');
             }
         }
 

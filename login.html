@@ -203,20 +203,20 @@
 
                     // Check if role matches
                     if (user.role !== role) {
-                        alert(`This account is registered as a ${user.role === 'job-seeker' ? 'Job Seeker' : 'Employer'}, not ${activeTabText}. Please select the correct role.`);
+                        showNotification(`This account is registered as a ${user.role === 'job-seeker' ? 'Job Seeker' : 'Employer'}, not ${activeTabText}. Please select the correct role.`, 'error');
                         return;
                     }
 
-                    alert(`Welcome back, ${user.role === 'job-seeker' ? 'Job Seeker' : 'Employer'}!`);
+                    showNotification(`Welcome back, ${user.role === 'job-seeker' ? 'Job Seeker' : 'Employer'}!`, 'success');
                     // Redirect to dashboard
                     setTimeout(() => {
                         window.location.href = 'dashboard.html';
-                    }, 500);
+                    }, 1500);
                 } catch (error) {
-                    alert(error.message);
+                    showNotification(error.message, 'error');
                 }
             } else {
-                alert('Please fill in all fields');
+                showNotification('Please fill in all fields', 'warning');
             }
         }
     </script>

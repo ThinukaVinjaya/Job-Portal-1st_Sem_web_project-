@@ -1,3 +1,36 @@
+// ========== NOTIFICATION SYSTEM ==========
+function showNotification(message, type = 'success', duration = 3000) {
+    // Remove existing notifications
+    const existingNotifications = document.querySelectorAll('.notification');
+    existingNotifications.forEach(notification => notification.remove());
+
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+
+    // Add icon based on type
+    const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : type === 'info' ? 'ℹ' : '⚠';
+    notification.innerHTML = `
+        <span class="notification-icon">${icon}</span>
+        <span class="notification-message">${message}</span>
+        <button class="notification-close" onclick="this.parentElement.remove()">×</button>
+    `;
+
+    // Add to page
+    document.body.appendChild(notification);
+
+    // Show with animation
+    setTimeout(() => notification.classList.add('show'), 10);
+
+    // Auto-hide after duration
+    if (duration > 0) {
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => notification.remove(), 300);
+        }, duration);
+    }
+}
+
 // ========== AUTHENTICATION FUNCTIONS ==========
 function checkAuthStatus() {
     return authDB.isAuthenticated() ? authDB.getCurrentUser() : null;
@@ -5,8 +38,10 @@ function checkAuthStatus() {
 
 function logout() {
     authDB.logout();
-    alert('You have been logged out');
-    window.location.href = 'index.html';
+    showNotification('You have been logged out successfully', 'info');
+    setTimeout(() => {
+        window.location.href = 'index.html';
+    }, 1000);
 }
 
 function updateNavigationUI() {
@@ -51,8 +86,10 @@ function toggleBookmark(element, event) {
     if (event) event.stopPropagation();
 
     if (!authDB.isAuthenticated()) {
-        alert('Please login to save jobs');
-        window.location.href = 'login.html';
+        showNotification('Please login to save jobs', 'info');
+        setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 1500);
         return;
     }
 
@@ -116,7 +153,7 @@ function performSearch() {
     const locationInput = document.getElementById('locationInput')?.value || '';
 
     if (!jobInput && !locationInput) {
-        alert('Please enter a job title or location');
+        showNotification('Please enter a job title or location', 'warning');
         return;
     }
 
@@ -203,7 +240,7 @@ function displayJobDetails() {
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-apply" onclick="alert('Successfully applied for ${job.title} at ${job.company}! ')" style="transition: all 0.3s; cursor: pointer;">Easy Apply</button>
+                    <button class="btn btn-apply" onclick="showNotification('Successfully applied for ${job.title} at ${job.company}!', 'success')" style="transition: all 0.3s; cursor: pointer;">Easy Apply</button>
                 </div>
 
                 <div class="job-detail-content">
@@ -427,7 +464,7 @@ function initCategoryCards() {
     document.querySelectorAll('.category-card').forEach(card => {
         card.addEventListener('click', () => {
             const categoryName = card.querySelector('h3').textContent;
-            alert(`Showing jobs in ${categoryName}`);
+            showNotification(`Showing jobs in ${categoryName}`, 'info');
         });
     });
 }
@@ -445,10 +482,10 @@ function initContactForm() {
                 const message = document.querySelector('textarea[name="message"]')?.value;
                 
                 if (fullName && email && message) {
-                    alert(`Thank you ${fullName}! We'll contact you at ${email} soon.`);
+                    showNotification(`Thank you ${fullName}! We'll contact you at ${email} soon.`, 'success');
                     contactForm.reset();
                 } else {
-                    alert('Please fill in all fields');
+                    showNotification('Please fill in all fields', 'warning');
                 }
             });
         }
@@ -467,10 +504,12 @@ function initAuthHandlers() {
             const password = document.querySelector('input[name="password"]')?.value;
             
             if (email && password) {
-                alert(`Welcome back! Logging in as ${email}`);
-                window.location.href = 'index.html';
+                showNotification(`Welcome back! Logging in as ${email}`, 'success');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
             } else {
-                alert('Please fill in all fields');
+                showNotification('Please fill in all fields', 'warning');
             }
         });
     }
@@ -483,10 +522,12 @@ function initAuthHandlers() {
             const password = document.querySelector('input[name="password"]')?.value;
             
             if (fullName && email && password) {
-                alert(`Account created successfully for ${fullName}!`);
-                window.location.href = 'index.html';
+                showNotification(`Account created successfully for ${fullName}!`, 'success');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
             } else {
-                alert('Please fill in all fields');
+                showNotification('Please fill in all fields', 'warning');
             }
         });
     }

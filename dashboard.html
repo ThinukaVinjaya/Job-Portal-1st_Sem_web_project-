@@ -304,8 +304,10 @@
         // Check authentication on page load
         function checkAuthOnDashboard() {
             if (!authDB.isAuthenticated()) {
-                alert('Please login to access the dashboard');
-                window.location.href = 'login.html';
+                showNotification('Please login to access the dashboard', 'error');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1500);
                 return;
             }
 
@@ -353,7 +355,7 @@
             const location = document.getElementById('alertLocation').value;
 
             if(!title || !location) {
-                alert('Please fill in all fields');
+                showNotification('Please fill in all fields', 'warning');
                 return;
             }
 
@@ -364,12 +366,12 @@
                     daily: document.getElementById('alertDaily').checked
                 });
 
-                alert(`Alert created for ${title} jobs in ${location}`);
+                showNotification(`Alert created for ${title} jobs in ${location}`, 'success');
                 document.getElementById('alertJobTitle').value = '';
                 document.getElementById('alertLocation').value = '';
                 loadJobAlerts();
             } catch (error) {
-                alert(error.message);
+                showNotification(error.message, 'error');
             }
         }
 
@@ -380,7 +382,7 @@
             const bio = document.getElementById('profileBio').value;
 
             if(!name || !email) {
-                alert('Please fill in all required fields');
+                showNotification('Please fill in all required fields', 'warning');
                 return;
             }
 
@@ -391,9 +393,9 @@
                     bio: bio
                 });
 
-                alert('Profile saved successfully!');
+                showNotification('Profile saved successfully!', 'success');
             } catch (error) {
-                alert(error.message);
+                showNotification(error.message, 'error');
             }
         }
 
@@ -479,7 +481,7 @@
 
             // Validate required fields
             if (!jobData.title || !jobData.company || !jobData.location || !jobData.type || !jobData.category || !jobData.description) {
-                alert('Please fill in all required fields');
+                showNotification('Please fill in all required fields', 'warning');
                 return;
             }
 
@@ -493,13 +495,15 @@
             // Save to localStorage for persistence
             localStorage.setItem('jobsDatabase', JSON.stringify(jobsDatabase));
 
-            alert(`Job "${jobData.title}" posted successfully!`);
+            showNotification(`Job "${jobData.title}" posted successfully!`, 'success');
             document.getElementById('jobPostForm').reset();
 
             // Optionally redirect to jobs page to see the new job
-            if (confirm('Job posted! Would you like to view all jobs?')) {
-                window.location.href = 'jobs.html';
-            }
+            setTimeout(() => {
+                if (confirm('Job posted! Would you like to view all jobs?')) {
+                    window.location.href = 'jobs.html';
+                }
+            }, 1000);
         }
 
         function loadUserProfile() {
