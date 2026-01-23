@@ -418,7 +418,6 @@
                                     <strong>Job Seeker</strong>
                                     <div style="color: #999; font-size: 0.85rem;">I'm looking for a new job or project.</div>
                                 </div>
-                                <span style="color: #4A90E2; font-size: 1.2rem;">✓</span>
                             </div>
                         </div>
 
@@ -496,10 +495,10 @@
             const btn = event.target;
             if (input.type === 'password') {
                 input.type = 'text';
-                btn.textContent = '🙈';
+                btn.textContent = '';
             } else {
                 input.type = 'password';
-                btn.textContent = '👁️';
+                btn.textContent = '';
             }
         }
 
