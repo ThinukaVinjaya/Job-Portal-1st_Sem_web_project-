@@ -146,10 +146,6 @@ h1 .highlight {
     box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
-.job-card:hover {
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
-
 .job-badge {
     background: #f5f5f5;
     color: #666;
