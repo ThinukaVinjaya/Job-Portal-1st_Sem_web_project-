@@ -6,7 +6,7 @@ function displayJobDetails() {
         return;
     }
 
-    const detailContainer = document.querySelector('.job-detail-container');
+    const detailContainer = document.querySelector('.job-detail-container > div');
     if (detailContainer) {
         const detailsHTML = `
             <div style="animation: slideUp 0.6s ease;">
@@ -50,6 +50,15 @@ function displayJobDetails() {
             </div>
         `;
         detailContainer.innerHTML = detailsHTML;
+    }
+
+    // Update sidebar with job-specific info
+    const sidebarCard = document.querySelector('.sidebar-card');
+    if (sidebarCard) {
+        const aboutSection = sidebarCard.querySelector('h4');
+        if (aboutSection && aboutSection.textContent.includes('About')) {
+            aboutSection.textContent = `About ${job.company}`;
+        }
     }
 }
 
