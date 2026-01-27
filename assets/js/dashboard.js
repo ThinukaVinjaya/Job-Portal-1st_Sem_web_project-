@@ -312,7 +312,7 @@ function initDashboard() {
         updateFABVisibility();
 
         // Initialize dashboard tabs
-        const defaultTab = 'saved-jobs';
+        const defaultTab = 'saved';
         showDashboardTab(defaultTab, { preventDefault: () => {}, target: document.querySelector(`[onclick*="showDashboardTab('${defaultTab}')"]`) });
     }
 }

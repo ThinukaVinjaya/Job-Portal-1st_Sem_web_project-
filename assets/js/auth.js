@@ -6,8 +6,13 @@ function checkAuthStatus() {
 function logout() {
     authDB.logout();
     showNotification('You have been logged out successfully', 'info');
+    
+    // Determine correct path to index.html
+    const isInPagesDir = window.location.pathname.includes('/pages/') || window.location.href.includes('/pages/');
+    const indexHref = isInPagesDir ? '../index.html' : 'index.html';
+    
     setTimeout(() => {
-        window.location.href = 'index.html';
+        window.location.href = indexHref;
     }, 1000);
 }
 
@@ -18,6 +23,12 @@ function updateNavigationUI() {
     const userData = checkAuthStatus();
     const isDashboardPage = window.location.pathname.includes('dashboard.html') ||
                            window.location.href.includes('dashboard.html');
+    
+    // Determine if we're in the pages/ directory
+    const isInPagesDir = window.location.pathname.includes('/pages/') || window.location.href.includes('/pages/');
+    const dashboardHref = isInPagesDir ? 'dashboard.html' : 'pages/dashboard.html';
+    const loginHref = isInPagesDir ? 'login.html' : 'pages/login.html';
+    const signupHref = isInPagesDir ? 'signup.html' : 'pages/signup.html';
 
     if (userData) {
         // User is logged in
@@ -28,23 +39,65 @@ function updateNavigationUI() {
             `;
             if (authButtons) authButtons.innerHTML = dashboardButtons;
             if (mobileAuthButtons) mobileAuthButtons.innerHTML = dashboardButtons;
+            
+            // Add mobile menu close functionality to new buttons
+            if (mobileAuthButtons) {
+                const newButtons = mobileAuthButtons.querySelectorAll('a, button');
+                newButtons.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+                        const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+                        if (mobileMenuToggle) mobileMenuToggle.classList.remove('active');
+                        if (mobileMenuOverlay) mobileMenuOverlay.classList.remove('active');
+                        document.body.style.overflow = '';
+                    });
+                });
+            }
         } else {
             // On other pages, show dashboard link and logout
             const regularButtons = `
-                <a href="dashboard.html" class="btn-dashboard" style="background-color: #4A90E2; color: white; border: none; padding: 0.6rem 1.5rem; border-radius: 25px; cursor: pointer; font-weight: 500; text-decoration: none; display: inline-block; margin-right: 0.5rem;">Dashboard</a>
+                <a href="${dashboardHref}" class="btn-dashboard" style="background-color: #4A90E2; color: white; border: none; padding: 0.6rem 1.5rem; border-radius: 25px; cursor: pointer; font-weight: 500; text-decoration: none; display: inline-block; margin-right: 0.5rem;">Dashboard</a>
                 <button onclick="logout()" class="btn-logout" style="border: 2px solid #e74c3c; background: white; color: #e74c3c; padding: 0.6rem 1.5rem; border-radius: 25px; cursor: pointer; font-weight: 500;">Logout</button>
             `;
             if (authButtons) authButtons.innerHTML = regularButtons;
             if (mobileAuthButtons) mobileAuthButtons.innerHTML = regularButtons;
+            
+            // Add mobile menu close functionality to new buttons
+            if (mobileAuthButtons) {
+                const newButtons = mobileAuthButtons.querySelectorAll('a, button');
+                newButtons.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+                        const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+                        if (mobileMenuToggle) mobileMenuToggle.classList.remove('active');
+                        if (mobileMenuOverlay) mobileMenuOverlay.classList.remove('active');
+                        document.body.style.overflow = '';
+                    });
+                });
+            }
         }
     } else {
         // User is not logged in - show login/signup buttons
         const loginButtons = `
-            <a href="login.html" class="btn-login">Login</a>
-            <a href="signup.html" class="btn-signup">Sign Up Free</a>
+            <a href="${loginHref}" class="btn-login">Login</a>
+            <a href="${signupHref}" class="btn-signup">Sign Up Free</a>
         `;
         if (authButtons) authButtons.innerHTML = loginButtons;
         if (mobileAuthButtons) mobileAuthButtons.innerHTML = loginButtons;
+        
+        // Add mobile menu close functionality to new buttons
+        if (mobileAuthButtons) {
+            const newButtons = mobileAuthButtons.querySelectorAll('a, button');
+            newButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+                    const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+                    if (mobileMenuToggle) mobileMenuToggle.classList.remove('active');
+                    if (mobileMenuOverlay) mobileMenuOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+        }
     }
 }
 
@@ -67,10 +120,10 @@ function initPasswordToggle() {
             const input = btn.previousElementSibling;
             if (input && input.type === 'password') {
                 input.type = 'text';
-                btn.textContent = '<!-- add icone -->';
+                btn.textContent = '🙈';
             } else if (input) {
                 input.type = 'password';
-                btn.textContent = '<!-- add icone -->';
+                btn.textContent = '👁';
             }
         });
     });

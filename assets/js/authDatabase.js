@@ -203,7 +203,7 @@ class AuthDatabase {
             throw new Error('User not found');
         }
 
-        this.users[userIndex].jobAlerts = this.users[userIndex].jobAlerts.filter(alert => alert.id != alertId);
+        this.users[userIndex].jobAlerts = this.users[userIndex].jobAlerts.filter(alert => alert.id !== alertId);
         this.currentUser.jobAlerts = this.users[userIndex].jobAlerts;
         this.saveToStorage();
     }

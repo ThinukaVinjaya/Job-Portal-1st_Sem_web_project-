@@ -170,7 +170,7 @@
 
   
 
-    <script src="authDatabase.js"></script>
+    <script src="../assets/js/authDatabase.js"></script>
     <script>
         function switchAuthTab(element) {
             const tabs = document.querySelectorAll('.auth-tab');
@@ -194,21 +194,11 @@
             event.preventDefault();
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('passwordInput').value;
-            const activeTabText = document.querySelector('.auth-tab.active').textContent.trim();
-            const role = activeTabText === 'Job Seeker' ? 'job-seeker' : 'employer';
-            const rememberMe = document.getElementById('rememberMe').checked;
 
             if (email && password) {
                 try {
                     const user = authDB.login(email, password);
-
-                    // Check if role matches
-                    if (user.role !== role) {
-                        showNotification(`This account is registered as a ${user.role === 'job-seeker' ? 'Job Seeker' : 'Employer'}, not ${activeTabText}. Please select the correct role.`, 'error');
-                        return;
-                    }
-
-                    showNotification(`Welcome back, ${user.role === 'job-seeker' ? 'Job Seeker' : 'Employer'}!`, 'success');
+                    showNotification(`Welcome back, ${user.fullName || user.email}!`, 'success');
                     // Redirect to dashboard
                     setTimeout(() => {
                         window.location.href = 'dashboard.html';

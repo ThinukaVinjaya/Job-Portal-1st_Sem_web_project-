@@ -245,4 +245,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initSearch();
     initTags();
     initSmoothScroll();
+    
+    // Update navigation UI if auth system is available
+    if (typeof updateNavigationUI === 'function') {
+        updateNavigationUI();
+    }
 });
